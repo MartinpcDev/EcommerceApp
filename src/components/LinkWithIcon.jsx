@@ -1,8 +1,8 @@
-export const LinkWithIcon = ({ title, link, emoji }) => {
+export const LinkWithIcon = ({ title, link, emoji, sidebar }) => {
   return (
     <a
       href={link}
-      className='align_center m-[15px] text-inherit font-[500] no-underline cursor-pointer'
+      className={sidebar ? 'align_center m-[20px] text-inherit font-[500] no-underline cursor-pointer sidebar_link' : 'align_center'}
     >{title}
       <img
         src={emoji}

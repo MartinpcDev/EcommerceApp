@@ -14,4 +14,10 @@
   .align_center {
     @apply flex items-center;
   }
+  .sidebar_link{
+    @apply flex-row-reverse justify-end text-[21px] p-[10px_15px] rounded-[5px] transition-all duration-150 ease-in-out hover:bg-[#f6f6f6]; 
+  }
+  .sidebar_link img{
+    @apply w-[30px] ml-0 mr-[8px];
+  }
 }
