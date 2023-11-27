@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { QuantityInput } from './QuantityInput'
 
 const product = {
   id: 1,
@@ -41,9 +42,7 @@ export const SingleProductPage = () => {
         <p className='mb-[16px] text-[24px] font-[600]'>${product.price.toFixed(2)}</p>
         <h2 className='text-[20px] font-[700]'>Quantity:</h2>
         <div className='w-[160px] align_center text-[20px] font-[700] m-[5px_0_16px]'>
-          <button className='flex items-center justify-center w-[35px] h-[35px] text-[25px] bg-[#ff8848] text-[#fff] border-none rounded-[100%] cursor-pointer disabled:opacity-30 disabled:cursor-default' disabled> - </button>
-          <p className='flex items-center justify-center text-center m-[0_40px]'>1</p>
-          <button className='w-[35px] h-[35px] text-[25px] bg-[#ff8848] text-[#fff] border-none rounded-[100%] cursor-pointer flex items-center justify-center'> + </button>
+          <QuantityInput />
         </div>
         <button className='button_search w-[160px] p-[8px_18px]'>Add to Cart</button>
       </div>

@@ -1,8 +1,9 @@
 import { NavBar } from './components/NavBar'
-import { SingleProductPage } from './components/SingleProductPage'
-
-import { HomePage } from './pages/Home/HomePage'
-import { ProductsPage } from './pages/Products/ProductsPage'
+import { MyOrderPage } from './pages/MyOrder/MyOrderPage'
+// import { SingleProductPage } from './components/SingleProductPage'
+// import { HomePage } from './pages/Home/HomePage'
+// import { ProductsPage } from './pages/Products/ProductsPage'
+// import { CartPage } from './pages/Cart/CartPage'
 
 export const App = () => {
   return (
@@ -11,7 +12,9 @@ export const App = () => {
       <main className=''>
         {/* <HomePage /> */}
         {/* <ProductsPage /> */}
-        <SingleProductPage />
+        {/* <SingleProductPage /> */}
+        {/* <CartPage /> */}
+        <MyOrderPage />
       </main>
     </div>
   )
