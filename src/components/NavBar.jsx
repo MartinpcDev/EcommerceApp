@@ -18,7 +18,7 @@ export const NavBar = () => {
             placeholder='Search Products'
           />
           <button
-            className='h-full py-0 px-[10px] text-[20px] font-[500] border-none rounded-md bg-[#6457f9] text-[#fff] cursor-pointer'
+            className='h-full button_search'
             type='submit'
           >Search
           </button>

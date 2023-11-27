@@ -35,7 +35,18 @@ export const SingleProductPage = () => {
         </div>
         <img src={product.images[selectedImage]} alt={product.title} className='w-[600px] h-[600px] object-cover rounded-[10px]' />
       </div>
-      <div className='align_center'>a</div>
+      <div className='w-[35%] p-[16px_24px]'>
+        <h1 className='mb-[16px] text-[32px]'>{product.title}</h1>
+        <p className='mb-[16px] leading-[1.4]'>{product.description}</p>
+        <p className='mb-[16px] text-[24px] font-[600]'>${product.price.toFixed(2)}</p>
+        <h2 className='text-[20px] font-[700]'>Quantity:</h2>
+        <div className='w-[160px] align_center text-[20px] font-[700] m-[5px_0_16px]'>
+          <button className='flex items-center justify-center w-[35px] h-[35px] text-[25px] bg-[#ff8848] text-[#fff] border-none rounded-[100%] cursor-pointer disabled:opacity-30 disabled:cursor-default' disabled> - </button>
+          <p className='flex items-center justify-center text-center m-[0_40px]'>1</p>
+          <button className='w-[35px] h-[35px] text-[25px] bg-[#ff8848] text-[#fff] border-none rounded-[100%] cursor-pointer flex items-center justify-center'> + </button>
+        </div>
+        <button className='button_search w-[160px] p-[8px_18px]'>Add to Cart</button>
+      </div>
     </section>
   )
 }

@@ -20,4 +20,8 @@
   .sidebar_link img{
     @apply w-[30px] ml-0 mr-[8px];
   }
+
+  .button_search {
+    @apply py-0 px-[10px] text-[20px] font-[500] border-none rounded-md bg-[#6457f9] text-[#fff] cursor-pointer;
+  }
 }
