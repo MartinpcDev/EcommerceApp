@@ -49,4 +49,12 @@
     @apply h-[50px] bg-[#36304a] text-[#fff] uppercase;
   }
 
+  .form_inputs {
+    @apply flex flex-col mb-[20px];
+  }
+
+  .form_text_input {
+    @apply h-[35px] p-[0_8px] text-[17px] font-[500] outline-none;
+  }
+
 }
