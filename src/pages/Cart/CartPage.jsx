@@ -1,5 +1,5 @@
 import user from '../../assets/User.svg'
-import { Table } from '../../components/Common/Table'
+import { Table } from '../../components/Table'
 import { QuantityInput } from '../SingleProductPage/QuantityInput'
 import remove from '../../assets/trash.svg'
 

@@ -1,4 +1,4 @@
-import { Table } from '../../components/Common/Table'
+import { Table } from '../../components/Table'
 
 export const MyOrderPage = () => {
   return (

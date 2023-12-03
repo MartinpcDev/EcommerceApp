@@ -5,6 +5,7 @@ import memo from '../assets/memo.svg'
 import order from '../assets/order.svg'
 import lock from '../assets/lock.svg'
 import { LinkWithIcon } from './LinkWithIcon'
+import { NavLink } from 'react-router-dom'
 
 export const NavBar = () => {
   return (
@@ -24,14 +25,14 @@ export const NavBar = () => {
           </button>
         </form>
       </div>
-      <div className='align_center text-[20px]'>
+      <div className='align_center text-[20px] m-[15px] font-[500]'>
         <LinkWithIcon title='Home' link='/' emoji={rocket} />
         <LinkWithIcon title='Products' link='/products' emoji={star} />
         <LinkWithIcon title='Login' link='/login' emoji={IDbutton} />
         <LinkWithIcon title='SignUp' link='/signup' emoji={memo} />
         <LinkWithIcon title='My Orders' link='/myorders' emoji={order} />
         <LinkWithIcon title='logout' link='/logout' emoji={lock} />
-        <a className='align_center' href='/cart'>Cart <p className='align_center justify-center w-[20px] h-[20px] rounded-[100%] bg-[#6457f9] text-[#fff] text-[15px] ml-[15px]'>0</p></a>
+        <NavLink className='align_center' to='/cart'>Cart <p className='align_center justify-center w-[20px] h-[20px] rounded-[100%] bg-[#6457f9] text-[#fff] text-[15px] ml-[15px] active:font-[600]'>0</p></NavLink>
       </div>
     </nav>
   )
