@@ -2,17 +2,48 @@ import { ProductCard } from './ProductCard'
 import { useData } from '../../hooks/useData'
 import { ProductCardSkeleton } from './ProductCardSkeleton'
 import { useSearchParams } from 'react-router-dom'
+// import { Pagination } from '../../components/Pagination'
+import { useEffect, useState } from 'react'
 
 export const ProductsList = () => {
+  const [page, setPage] = useState(1)
   const [search, setSearch] = useSearchParams()
   const category = search.get('category')
-  const page = search.get('page')
   const { data, error, isloading } = useData('/products', {
     params: {
-      category
+      category,
+      perPage: 10,
+      page
     }
   }, [category, page])
+
+  useEffect(() => {
+    setPage(1)
+  }, [category])
+
   const skeleton = [1, 2, 3, 4, 5, 6, 7, 8]
+
+  // const handlePageChange = (page) => {
+  //   const currentParams = Object.fromEntries([...search])
+  //   setSearch({ ...currentParams, page: parseInt(currentParams.page) + 1 })
+  // }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement
+      if (
+        scrollTop + clientHeight >= scrollHeight - 1 &&
+        !isloading &&
+        data &&
+        page < data.totalPages
+      ) {
+        console.log('Reached to Bottom')
+        setPage(prev => prev + 1)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [data, isloading])
   return (
     <section className='p-[10px] pl-[30px]'>
       <header className='align_center justify-between'>
@@ -27,9 +58,6 @@ export const ProductsList = () => {
       </header>
       <div className='flex flex-wrap justify-evenly'>
         {error && <em className='text-red-500'>{error}</em>}
-        {isloading && skeleton.map((n) => (
-          <ProductCardSkeleton key={n} />
-        ))}
         {data?.products && (
           data.products.map(product => (
             <ProductCard
@@ -42,7 +70,15 @@ export const ProductsList = () => {
               ratingCounts={product.reviews.counts}
               stock={product.stock}
             />)))}
+        {isloading && skeleton.map((n) => (<ProductCardSkeleton key={n} />))}
       </div>
+      {/* {data && (
+        <Pagination
+          totalPost={data.totalProducts}
+          postsPerPage={8}
+          onClick={handlePageChange}
+          currentPage={page}
+        />)} */}
     </section>
   )
 }

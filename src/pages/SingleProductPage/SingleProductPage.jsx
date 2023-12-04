@@ -1,51 +1,55 @@
 import { useState } from 'react'
 import { QuantityInput } from './QuantityInput'
-
-const product = {
-  id: 1,
-  title: 'Product title',
-  description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam velit praesentium similique quisquam officia repudiandae rem nulla commodi quasi soluta minima distinctio illo, error in.',
-  price: 9.99,
-  images: [
-    'https://via.placeholder.com/500x500?text=Product+Image+1',
-    'https://via.placeholder.com/500x500?text=Product+Image+2',
-    'https://via.placeholder.com/500x500?text=Product+Image+3',
-    'https://via.placeholder.com/500x500?text=Product+Image+4'
-  ],
-  stock: 10
-}
+import { useParams } from 'react-router-dom'
+import { useData } from '../../hooks/useData'
 
 export const SingleProductPage = () => {
   const [selectedImage, setSelectedImage] = useState(0)
+  const [quantity, setQuantity] = useState(1)
+  const { id } = useParams()
+  const { data: product, error, isloading } = useData(`/products/${id}`)
   return (
     <section className='align_center justify-center p-[32px_48px]'>
-      <div className='align_center'>
-        <div className='flex flex-col flex-wrap gap-[14px] p-[8px] m-[16px]'>
-          {
+      {error && <em className='text-red-500'>{error}</em>}
+      {/* {isloading && <Loader />} */}
+      {product && (
+        <>
+          <div className='align_center'>
+            <div className='flex flex-col flex-wrap gap-[14px] p-[8px] m-[16px]'>
+              {
             product.images.map((image, index) => (
               <img
                 className={'w-[80px] h-[80px] object-cover rounded-[5px] cursor-pointer transition-[all_0.2s_ease-in-out]' +
                 (selectedImage === index ? ' scale-[1.12]' : '')}
                 key={index}
-                src={image}
+                src={`http://localhost:5000/products/${image}`}
                 alt={product.title}
                 onClick={() => setSelectedImage(index)}
               />
             ))
           }
-        </div>
-        <img src={product.images[selectedImage]} alt={product.title} className='w-[600px] h-[600px] object-cover rounded-[10px]' />
-      </div>
-      <div className='w-[35%] p-[16px_24px]'>
-        <h1 className='mb-[16px] text-[32px]'>{product.title}</h1>
-        <p className='mb-[16px] leading-[1.4]'>{product.description}</p>
-        <p className='mb-[16px] text-[24px] font-[600]'>${product.price.toFixed(2)}</p>
-        <h2 className='text-[20px] font-[700]'>Quantity:</h2>
-        <div className='w-[160px] align_center text-[20px] font-[700] m-[5px_0_16px]'>
-          <QuantityInput />
-        </div>
-        <button className='button_search w-[160px] p-[8px_18px]'>Add to Cart</button>
-      </div>
+            </div>
+            <img
+              src={`http://localhost:5000/products/${product.images[selectedImage]}`}
+              alt={product.title}
+              className='w-[600px] h-[600px] object-cover rounded-[10px]'
+            />
+          </div>
+          <div className='w-[35%] p-[16px_24px]'>
+            <h1 className='mb-[16px] text-[32px]'>{product.title}</h1>
+            <p className='mb-[16px] leading-[1.4]'>{product.description}</p>
+            <p className='mb-[16px] text-[24px] font-[600]'>${product.price.toFixed(2)}</p>
+            <h2 className='text-[20px] font-[700]'>Quantity:</h2>
+            <div className='w-[160px] align_center text-[20px] font-[700] m-[5px_0_16px]'>
+              <QuantityInput
+                quantity={quantity}
+                setQuantity={setQuantity}
+                stock={product.stock}
+              />
+            </div>
+            <button className='button_search w-[160px] p-[8px_18px]'>Add to Cart</button>
+          </div>
+        </>)}
     </section>
   )
 }

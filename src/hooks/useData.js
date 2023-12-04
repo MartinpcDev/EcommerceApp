@@ -10,7 +10,18 @@ export const useData = (endpoint, customConfig, deps) => {
     setIsloading(true)
     apiClient.get(endpoint, customConfig)
       .then(res => {
-        setData(res.data)
+        if (
+          endpoint === '/products' &&
+          data &&
+          data.products &&
+          customConfig.params.page !== 1
+        ) {
+          setData(prev => ({
+            ...prev, products: [...prev.products, ...res.data.products]
+          }))
+        } else {
+          setData(res.data)
+        }
         setIsloading(false)
       })
       .catch(err => {
