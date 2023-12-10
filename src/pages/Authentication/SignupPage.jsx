@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import user from '../../assets/User.svg'
 import { useState } from 'react'
+import { signup } from '../../services/userServices'
 
 const schema = z.object({
   name: z
@@ -26,9 +27,22 @@ const schema = z.object({
 
 export const SignupPage = () => {
   const [profilePic, setProfilePic] = useState(null)
-  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: zodResolver(schema) })
+  const [formError, setFormError] = useState('')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({ resolver: zodResolver(schema) })
 
-  const onSubmit = formData => console.log(formData)
+  const onSubmit = async (formData) => {
+    try {
+      await signup(formData, profilePic)
+    } catch (err) {
+      if (err.message && err.response.status === 400) {
+        setFormError(err.response.data.message)
+      }
+    }
+  }
 
   console.log(profilePic)
   return (
@@ -115,7 +129,7 @@ export const SignupPage = () => {
             {errors.deliveryAddress && (<em className='text-red-500'>{errors.deliveryAddress.message}</em>)}
           </div>
         </div>
-
+        {formError && <em className='text-red-500'>{formError}</em>}
         <button className='button_search h-[40px] w-full m-[25px_0_10px]' type='submit'>
           Submit
         </button>
