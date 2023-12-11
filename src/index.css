@@ -45,7 +45,7 @@
     @apply bg-[#f5f5f5];
   }
 
-  .common_table thead th {
+  .common_table thead tr {
     @apply h-[50px] bg-[#36304a] text-[#fff] uppercase;
   }
 

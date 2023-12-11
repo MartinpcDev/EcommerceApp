@@ -1,13 +1,15 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { QuantityInput } from './QuantityInput'
 import { useParams } from 'react-router-dom'
 import { useData } from '../../hooks/useData'
+import { CartContext } from '../../contexts/CartContext'
 
 export const SingleProductPage = () => {
+  const { addToCart } = useContext(CartContext)
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const { id } = useParams()
-  const { data: product, error, isloading } = useData(`/products/${id}`)
+  const { data: product, error } = useData(`/products/${id}`)
   return (
     <section className='align_center justify-center p-[32px_48px]'>
       {error && <em className='text-red-500'>{error}</em>}
@@ -47,7 +49,11 @@ export const SingleProductPage = () => {
                 stock={product.stock}
               />
             </div>
-            <button className='button_search w-[160px] p-[8px_18px]'>Add to Cart</button>
+            <button
+              className='button_search w-[160px] p-[8px_18px]'
+              onClick={() => addToCart(product, quantity)}
+            >Add to Cart
+            </button>
           </div>
         </>)}
     </section>
