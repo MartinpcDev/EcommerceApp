@@ -7,6 +7,7 @@ import { SignupPage } from '../pages/Authentication/SignupPage'
 import { LoginPage } from '../pages/Authentication/LoginPage'
 import { MyOrderPage } from '../pages/MyOrder/MyOrderPage'
 import { CartPage } from '../pages/Cart/CartPage'
+import { Logout } from '../pages/Authentication/Logout'
 
 export const Routing = () => {
   return (
@@ -18,6 +19,7 @@ export const Routing = () => {
       <Route path='/login' element={<LoginPage />} />
       <Route path='/cart' element={<CartPage />} />
       <Route path='/myorders' element={<MyOrderPage />} />
+      <Route path='/logout' element={<Logout />} />
     </Routes>
   )
 }

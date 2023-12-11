@@ -37,6 +37,7 @@ export const SignupPage = () => {
   const onSubmit = async (formData) => {
     try {
       await signup(formData, profilePic)
+      window.location('/')
     } catch (err) {
       if (err.message && err.response.status === 400) {
         setFormError(err.response.data.message)

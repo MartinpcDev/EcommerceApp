@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { login } from '../../services/userServices'
+import { useState } from 'react'
 
 const schema = z.object({
   email: z
@@ -14,7 +16,17 @@ const schema = z.object({
 
 export const LoginPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: zodResolver(schema) })
-  const onSubmit = formData => console.log(formData)
+  const [formError, setFormError] = useState('')
+  const onSubmit = async (formData) => {
+    try {
+      await login(formData)
+      window.location = '/'
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setFormError(err.response.data.message)
+      }
+    }
+  }
 
   return (
     <section className='align_center justify-center'>
@@ -51,6 +63,7 @@ export const LoginPage = () => {
             />
             {errors.password && (<em className='text-red-500'>{errors.password.message}</em>)}
           </div>
+          {formError && <em className='text-red-500'>{formError}</em>}
           <button
             type='submit'
             className='button_search h-[40px] w-full m-[25px_0_10px]'

@@ -7,7 +7,7 @@ import lock from '../assets/lock.svg'
 import { LinkWithIcon } from './LinkWithIcon'
 import { NavLink } from 'react-router-dom'
 
-export const NavBar = () => {
+export const NavBar = ({ user }) => {
   return (
     <nav className='align_center justify-between py-0 px-[40px]'>
       <div className='align_center'>
@@ -28,11 +28,17 @@ export const NavBar = () => {
       <div className='align_center text-[20px] m-[15px] font-[500]'>
         <LinkWithIcon title='Home' link='/' emoji={rocket} />
         <LinkWithIcon title='Products' link='/products' emoji={star} />
-        <LinkWithIcon title='Login' link='/login' emoji={IDbutton} />
+        {!user &&
+          <>
+            <LinkWithIcon title='Login' link='/login' emoji={IDbutton} />
+          </>}
         <LinkWithIcon title='SignUp' link='/signup' emoji={memo} />
-        <LinkWithIcon title='My Orders' link='/myorders' emoji={order} />
-        <LinkWithIcon title='logout' link='/logout' emoji={lock} />
-        <NavLink className='align_center' to='/cart'>Cart <p className='align_center justify-center w-[20px] h-[20px] rounded-[100%] bg-[#6457f9] text-[#fff] text-[15px] ml-[15px] active:font-[600]'>0</p></NavLink>
+        {user &&
+          <>
+            <LinkWithIcon title='My Orders' link='/myorders' emoji={order} />
+            <LinkWithIcon title='logout' link='/logout' emoji={lock} />
+            <NavLink className='align_center' to='/cart'>Cart <p className='align_center justify-center w-[20px] h-[20px] rounded-[100%] bg-[#6457f9] text-[#fff] text-[15px] ml-[15px] active:font-[600]'>0</p></NavLink>
+          </>}
       </div>
     </nav>
   )
