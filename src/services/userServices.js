@@ -32,3 +32,7 @@ export const getUser = () => {
     return null
   }
 }
+
+export const getJwt = () => {
+  return window.localStorage.getItem(tokenName)
+}
