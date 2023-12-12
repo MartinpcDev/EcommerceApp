@@ -3,11 +3,14 @@ import { QuantityInput } from './QuantityInput'
 import { useParams } from 'react-router-dom'
 import { useData } from '../../hooks/useData'
 import { CartContext } from '../../contexts/CartContext'
+import { UserContext } from '../../contexts/UserContext'
 
 export const SingleProductPage = () => {
-  const { addToCart } = useContext(CartContext)
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
+
+  const { addToCart } = useContext(CartContext)
+  const user = useContext(UserContext)
   const { id } = useParams()
   const { data: product, error } = useData(`/products/${id}`)
   return (
@@ -41,19 +44,23 @@ export const SingleProductPage = () => {
             <h1 className='mb-[16px] text-[32px]'>{product.title}</h1>
             <p className='mb-[16px] leading-[1.4]'>{product.description}</p>
             <p className='mb-[16px] text-[24px] font-[600]'>${product.price.toFixed(2)}</p>
-            <h2 className='text-[20px] font-[700]'>Quantity:</h2>
-            <div className='w-[160px] align_center text-[20px] font-[700] m-[5px_0_16px]'>
-              <QuantityInput
-                quantity={quantity}
-                setQuantity={setQuantity}
-                stock={product.stock}
-              />
-            </div>
-            <button
-              className='button_search w-[160px] p-[8px_18px]'
-              onClick={() => addToCart(product, quantity)}
-            >Add to Cart
-            </button>
+
+            {user &&
+              <>
+                <h2 className='text-[20px] font-[700]'>Quantity:</h2>
+                <div className='w-[160px] align_center text-[20px] font-[700] m-[5px_0_16px]'>
+                  <QuantityInput
+                    quantity={quantity}
+                    setQuantity={setQuantity}
+                    stock={product.stock}
+                  />
+                </div>
+                <button
+                  className='button_search w-[160px] p-[8px_18px]'
+                  onClick={() => addToCart(product, quantity)}
+                >Add to Cart
+                </button>
+              </>}
           </div>
         </>)}
     </section>
