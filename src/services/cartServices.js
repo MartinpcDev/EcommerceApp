@@ -11,3 +11,11 @@ export const getCartAPI = () => {
 export const removeFromCartAPI = (id) => {
   return apiClient.patch(`/cart/remove/${id}`)
 }
+
+export const increaseProductAPI = (id) => {
+  return apiClient.patch(`/cart/increase/${id}`)
+}
+
+export const decreaseProductAPI = (id) => {
+  return apiClient.patch(`/cart/decrease/${id}`)
+}

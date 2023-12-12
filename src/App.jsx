@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { NavBar } from './components/NavBar'
-import { Routing } from './routing/Routing'
+import { Routing } from './router/Routing'
 import { getJwt, getUser } from './services/userServices'
 import { setAuthToken } from './utils/setAuthToken'
-import { addToCartAPI, getCartAPI, removeFromCartAPI } from './services/cartServices'
+import { addToCartAPI, decreaseProductAPI, getCartAPI, increaseProductAPI, removeFromCartAPI } from './services/cartServices'
 import 'react-toastify/dist/ReactToastify.css'
 import { UserContext } from './contexts/UserContext'
 import { CartContext } from './contexts/CartContext'
@@ -51,10 +51,34 @@ export const App = () => {
     const oldCart = [...cart]
     const newCart = oldCart.filter(item => item.product._id !== id)
     setCart(newCart)
-    removeFromCartAPI(id).catch(err => {
-      toast.error(err.response)
-      setCart(oldCart)
-    })
+    removeFromCartAPI(id)
+      .catch(err => {
+        toast.error(err.response)
+        setCart(oldCart)
+      })
+  }
+
+  const updateCart = (type, id) => {
+    const oldCart = [...cart]
+    const updateCart = [...cart]
+    const productIndex = updateCart.findIndex(item => item.product._id === id)
+    if (type === 'increase') {
+      updateCart[productIndex].quantity += 1
+      setCart(updateCart)
+      increaseProductAPI(id)
+        .catch(err => {
+          toast.error(err.response)
+          setCart(oldCart)
+        })
+    } if (type === 'decrease') {
+      updateCart[productIndex].quantity -= 1
+      setCart(updateCart)
+      decreaseProductAPI(id)
+        .catch(err => {
+          toast.error(err.response)
+          setCart(oldCart)
+        })
+    }
   }
 
   const getCart = () => {
@@ -76,7 +100,7 @@ export const App = () => {
 
   return (
     <UserContext.Provider value={user}>
-      <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+      <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateCart }}>
         <div className='grid grid-rows-[80px] auto-rows-auto font-montserrat'>
           <NavBar />
           <main className=''>
