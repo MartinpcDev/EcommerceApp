@@ -3,7 +3,8 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import user from '../../assets/User.svg'
 import { useState } from 'react'
-import { signup } from '../../services/userServices'
+import { getUser, signup } from '../../services/userServices'
+import { Navigate } from 'react-router-dom'
 
 const schema = z.object({
   name: z
@@ -45,7 +46,10 @@ export const SignupPage = () => {
     }
   }
 
-  console.log(profilePic)
+  if (getUser()) {
+    return <Navigate to='/' />
+  }
+
   return (
     <section className='align_center justify-center'>
       <form className='w-[40%] p-[32px_48px] mt-[32px] bg-[#fff]' onSubmit={handleSubmit(onSubmit)}>

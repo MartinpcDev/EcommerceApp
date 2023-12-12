@@ -40,8 +40,7 @@ export const App = () => {
       .then(res => {
         toast.success('Product Added Succesfully')
       })
-      .catch(err => {
-        console.log(err.response)
+      .catch(() => {
         toast.error('Failed to add product!')
         setCart(cart)
       })
@@ -52,8 +51,8 @@ export const App = () => {
     const newCart = oldCart.filter(item => item.product._id !== id)
     setCart(newCart)
     removeFromCartAPI(id)
-      .catch(err => {
-        toast.error(err.response)
+      .catch(() => {
+        toast.error('Something went wrong!')
         setCart(oldCart)
       })
   }
@@ -66,16 +65,16 @@ export const App = () => {
       updateCart[productIndex].quantity += 1
       setCart(updateCart)
       increaseProductAPI(id)
-        .catch(err => {
-          toast.error(err.response)
+        .catch(() => {
+          toast.error('Something went wrong!')
           setCart(oldCart)
         })
     } if (type === 'decrease') {
       updateCart[productIndex].quantity -= 1
       setCart(updateCart)
       decreaseProductAPI(id)
-        .catch(err => {
-          toast.error(err.response)
+        .catch(() => {
+          toast.error('Something went wrong!')
           setCart(oldCart)
         })
     }
@@ -86,8 +85,7 @@ export const App = () => {
       .then(res => {
         setCart(res.data)
       })
-      .catch(err => {
-        console.log(err.response)
+      .catch(() => {
         toast.error('Something went wrong!')
       })
   }
@@ -100,7 +98,7 @@ export const App = () => {
 
   return (
     <UserContext.Provider value={user}>
-      <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateCart }}>
+      <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateCart, setCart }}>
         <div className='grid grid-rows-[80px] auto-rows-auto font-montserrat'>
           <NavBar />
           <main className=''>

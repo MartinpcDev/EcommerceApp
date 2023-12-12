@@ -4,11 +4,14 @@ import remove from '../../assets/trash.svg'
 import { useEffect, useState, useContext } from 'react'
 import { UserContext } from '../../contexts/UserContext'
 import { CartContext } from '../../contexts/CartContext'
+import { checkoutAPI } from '../../services/orderServices'
+import { toast } from 'react-toastify'
 
 export const CartPage = () => {
   const [subTotal, setSubTotal] = useState(0)
   const user = useContext(UserContext)
-  const { cart, removeFromCart, updateCart } = useContext(CartContext)
+  const { cart, removeFromCart, updateCart, setCart } = useContext(CartContext)
+
   useEffect(() => {
     let total = 0
     cart.forEach(item => {
@@ -16,6 +19,19 @@ export const CartPage = () => {
     })
     setSubTotal(total)
   }, [cart])
+
+  const checkout = () => {
+    const oldCart = [...cart]
+    setCart([])
+    checkoutAPI()
+      .then(() => {
+        toast.success('Order placed Successfully')
+      })
+      .catch(() => {
+        toast.error('Something went wrong')
+        setCart(oldCart)
+      })
+  }
   return (
     <section className='align_center flex-col justify-center w-[60%] m-[0_auto] p-[32px_48px]'>
       <div className='align_center gap-[16px] mb-[32px]'>
@@ -71,7 +87,11 @@ export const CartPage = () => {
           </tr>
         </tbody>
       </table>
-      <button className='button_search self-end h-[38px_!important] m-[16px_0] p-[0_16px_!important]'>Checkout</button>
+      <button
+        className='button_search self-end h-[38px_!important] m-[16px_0] p-[0_16px_!important]'
+        onClick={checkout}
+      >Checkout
+      </button>
     </section>
   )
 }

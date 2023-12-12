@@ -8,6 +8,7 @@ import { LoginPage } from '../pages/Authentication/LoginPage'
 import { MyOrderPage } from '../pages/MyOrder/MyOrderPage'
 import { CartPage } from '../pages/Cart/CartPage'
 import { Logout } from '../pages/Authentication/Logout'
+import { ProtectedRoute } from './ProtectedRoute'
 
 export const Routing = () => {
   return (
@@ -17,9 +18,11 @@ export const Routing = () => {
       <Route path='/product/:id' element={<SingleProductPage />} />
       <Route path='/signup' element={<SignupPage />} />
       <Route path='/login' element={<LoginPage />} />
-      <Route path='/cart' element={<CartPage />} />
-      <Route path='/myorders' element={<MyOrderPage />} />
-      <Route path='/logout' element={<Logout />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path='/cart' element={<CartPage />} />
+        <Route path='/myorders' element={<MyOrderPage />} />
+        <Route path='/logout' element={<Logout />} />
+      </Route>
     </Routes>
   )
 }

@@ -36,8 +36,8 @@ export const NavBar = () => {
         {!user &&
           <>
             <LinkWithIcon title='Login' link='/login' emoji={IDbutton} />
+            <LinkWithIcon title='SignUp' link='/signup' emoji={memo} />
           </>}
-        <LinkWithIcon title='SignUp' link='/signup' emoji={memo} />
         {user &&
           <>
             <LinkWithIcon title='My Orders' link='/myorders' emoji={order} />
