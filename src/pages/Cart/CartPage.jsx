@@ -1,5 +1,6 @@
 import { Table } from '../../components/Table'
 import { QuantityInput } from '../SingleProductPage/QuantityInput'
+import config from '../../config.json'
 import remove from '../../assets/trash.svg'
 import { useEffect, useState, useContext } from 'react'
 import { UserContext } from '../../contexts/UserContext'
@@ -35,7 +36,7 @@ export const CartPage = () => {
   return (
     <section className='align_center flex-col justify-center w-[60%] m-[0_auto] p-[32px_48px]'>
       <div className='align_center gap-[16px] mb-[32px]'>
-        <img className='w-[80px] h-[80px] object-cover rounded-[100%]' src={`http://localhost:5000/profile/${user?.profilePic}`} alt='user_profile' />
+        <img className='w-[80px] h-[80px] object-cover rounded-[100%]' src={`${config.backendURL}/profile/${user?.profilePic}`} alt='user_profile' />
         <div>
           <p className='text-[21px] font-[600]'>Nombre : {user?.name}</p>
           <p>Email : {user?.email}</p>

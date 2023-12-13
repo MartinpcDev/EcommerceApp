@@ -1,4 +1,5 @@
 import { LinkWithIcon } from '../../components/LinkWithIcon'
+import config from '../../config.json'
 import { useData } from '../../hooks/useData.js'
 
 export const ProductsSideBar = () => {
@@ -14,7 +15,7 @@ export const ProductsSideBar = () => {
             key={category._id}
             title={category.name}
             link={`/products?category=${category.name}`}
-            emoji={`http://localhost:5000/category/${category.image}`}
+            emoji={`${config.backendURL}/category/${category.image}`}
             sidebar
           />
         )))}

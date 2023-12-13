@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import config from '../../config.json'
 import { QuantityInput } from './QuantityInput'
 import { useParams } from 'react-router-dom'
 import { useData } from '../../hooks/useData'
@@ -27,7 +28,7 @@ export const SingleProductPage = () => {
                 className={'w-[80px] h-[80px] object-cover rounded-[5px] cursor-pointer transition-[all_0.2s_ease-in-out]' +
                 (selectedImage === index ? ' scale-[1.12]' : '')}
                 key={index}
-                src={`http://localhost:5000/products/${image}`}
+                src={`${config.backendURL}/products/${image}`}
                 alt={product.title}
                 onClick={() => setSelectedImage(index)}
               />
@@ -35,7 +36,7 @@ export const SingleProductPage = () => {
           }
             </div>
             <img
-              src={`http://localhost:5000/products/${product.images[selectedImage]}`}
+              src={`${config.backendURL}/products/${product.images[selectedImage]}`}
               alt={product.title}
               className='w-[600px] h-[600px] object-cover rounded-[10px]'
             />
